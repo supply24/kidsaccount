@@ -41,7 +41,7 @@ const newArr1 = newTime1.reduce((acc, item) => acc + parseFloat(item.sumx), 0);
 console.log("newArr1", newArr1)
 
 const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112")
-const textReducer = newKontox1.reduce((prev, curr) => prev + curr, 0);
+const textReducer = newKontox1.reduce((acc, item) => acc + Number(item.sumx), 0);
 console.log("textReducer", textReducer)
 const newArr = newKontox1.reduce((acc, item) => acc + parseFloat(item.newsum), 0);
 console.log("newArr",newArr)
