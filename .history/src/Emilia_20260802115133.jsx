@@ -4,6 +4,10 @@ import {supabase} from "./data/Export/Supabase.jsx"
 import {Col, Row, Table} from "react-bootstrap"
 import {Link} from "react-router-dom"
 
+
+
+
+
 const Emilia = () => {
     const [accounter, setAccounter]=useState([])
     const [accounter1, setAccounter1]=useState([])
@@ -31,9 +35,9 @@ async function getEconomy2(){
   console.log("hämtade", data? data:"ej hämt")
 }
 
-const newTime1 = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112" ||item.kontox_value==="891") 
+const newTime1 = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112" ||item.kontox1_value==="199") 
 const newArr1 = newTime1.reduce((acc, item) => acc + parseFloat(item.debet_value), 0);
-const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112" ||item.kontox1_value==="891")
+const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112")
 const newArr = newKontox1.reduce((acc, item) => acc + parseFloat(item.kredit_value), 0);
 const newSumma = newArr1 - newArr
 console.log("newSumma", newSumma)

@@ -4,6 +4,10 @@ import {supabase} from "./data/Export/Supabase.jsx"
 import {Col, Row, Table} from "react-bootstrap"
 import {Link} from "react-router-dom"
 
+
+
+
+
 const Emilia = () => {
     const [accounter, setAccounter]=useState([])
     const [accounter1, setAccounter1]=useState([])
@@ -31,17 +35,36 @@ async function getEconomy2(){
   console.log("hämtade", data? data:"ej hämt")
 }
 
-const newTime1 = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112" ||item.kontox_value==="891") 
+
+const newTime1 = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112") 
+//const newArr1 = newTime1.reduce((acc, curr) => acc + parseFloat(curr.sumx), 0);
 const newArr1 = newTime1.reduce((acc, item) => acc + parseFloat(item.debet_value), 0);
-const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112" ||item.kontox1_value==="891")
+console.log("newTime1", newTime1)
+console.log("newArr1", newArr1)
+
+const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112")
+const textReducer = newKontox1.reduce((prev, curr) => prev + curr, 0);
+console.log("textReducer", textReducer)
 const newArr = newKontox1.reduce((acc, item) => acc + parseFloat(item.kredit_value), 0);
+console.log("newArr",newArr)
 const newSumma = newArr1 - newArr
 console.log("newSumma", newSumma)
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div>
       <Link to="/">Back</Link>
-      <Table style={{fontSize:12}} striped bordered hover> 
+      <Table style={{fontSize:12, marginRight:-20, marginLeft:20, marginTop:50}} striped bordered hover> 
         <thead> 
         <tr>
           <th>Datum</th>
@@ -66,9 +89,9 @@ console.log("newSumma", newSumma)
 
 </tbody>
 
+<td style={{marginTop:50}}></td>
 
-
-<tbody>
+<tbody style={{marginTop:50}}>
 
   {newKontox1.map((comp, index)=>(
     <tr key={index}>
@@ -80,12 +103,10 @@ console.log("newSumma", newSumma)
            </tr>
   ))}
 </tbody>  
-
+INSATT: {newArr1} <br/>
+UTTAG: {newArr} <br/>
+TOTAL: {newSumma}
       </Table>
-      <Col>   INSATT: {newArr1} </Col>
-        <Col>UTTAG: {newArr} </Col>
-<Col>                    
-TOTAL: {newSumma} </Col>
     </div>
   )
 }

@@ -4,6 +4,10 @@ import {supabase} from "./data/Export/Supabase.jsx"
 import {Col, Row, Table} from "react-bootstrap"
 import {Link} from "react-router-dom"
 
+
+
+
+
 const Emilia = () => {
     const [accounter, setAccounter]=useState([])
     const [accounter1, setAccounter1]=useState([])
