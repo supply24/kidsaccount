@@ -1,0 +1,26 @@
+import React, {useEffect, useState} from 'react'
+import { createClient } from '@supabase/supabase-js'
+import {supabase} from "./Supabase.jsx"
+import {Col, Row} from "react-bootstrap"
+
+
+
+
+const Emilia = () => {
+    const [accounter, setAccounter]=useState([])
+    
+    
+    async function getEconomy1(){
+    const {data, error} =await supabase.from("Accounting")
+    .select("*")
+    setAccounter(data)
+    console.log("hämtade", data? data:"ej hämt")
+}
+  return (
+    <div>
+      Emilia
+    </div>
+  )
+}
+
+export default Emilia

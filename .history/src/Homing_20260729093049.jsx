@@ -1,0 +1,59 @@
+import React, { useEffect, useState } from 'react'
+import { createClient } from "@supabase/supabase-js"
+import {supabase} from "./data/Export/Supabase.jsx"
+import {Col, Row} from "react-bootstrap"
+import {Link} from "react-router-dom"
+
+const Homing = () => {
+  const [accounter, setAccounter]=useState([])
+  const [kredit, setKredit]=useState("")
+  const [konto, setKonto]=useState([])
+
+
+useEffect(()=>{
+getAccounters();
+ }, [])
+
+async function getAccounters (){
+  const {data, error} =await supabase
+.from ("Accounting")
+.select("*")
+//.select(", kredit konto->>kredit,  kontox konto->>kontox, debet konto->>debet")
+setAccounter(data)
+console.log("konton hämtade", data ?data: "ej hämtad data")}
+
+//              {`${comp.kontox ? comp.kontox:"-"}`}
+
+let newArr  = Accoukonto.map((kont)=>kont.kontox)
+console.log(newArr)
+
+
+  return (
+    <div>
+      <Row>   <Link to ="/action">Action</Link>      </Row>
+    {accounter.map((comp)=>{
+      return(
+      <Col key={comp.id}>
+       {comp.datetime} 
+      
+       
+      
+
+          {comp.konto > 0 ? comp.konto.map((kont)=>{
+            return(
+              <Col>{kont.kontox}
+              
+
+              </Col>
+            )
+          }):"no >"}
+             
+        </Col>
+      )})}
+
+     </div>
+   
+  )
+}
+
+export default Homing
