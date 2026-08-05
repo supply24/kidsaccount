@@ -25,7 +25,6 @@ const { data, error } = await supabase
       console.log('Logged in user:', data)
       navigate('/emlia') // Redirect to the Emilia page after successful login
       navigate("/alex") // Redirect to the Alex page after successful login
-      navigate("/torb")
     }
   } 
  

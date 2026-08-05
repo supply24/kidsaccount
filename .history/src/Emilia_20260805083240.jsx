@@ -45,17 +45,8 @@ const sumInsatt = newKontox.reduce((acc,item)=>acc+parseFloat(item.debet_value),
 const sumUttag = newKontox1.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
 const sumSum  = sumInsatt - sumUttag
 console.log(sumSum)
-
-//Resurs
-const newRes = accounter.flatMap((item=>item).filter(item=>item.kontox_value==="e891"))
-const newRes1 = accounter.flatMap((item=>item).filter(item=>item.kontox_value==="e891"))
-const sumInsattRes = newRes-reduce((acc,item)=>acc+parseFloat(item.debet_value), 0)
-const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
-
-
-
-
-
+//const newSumma = newArr1 - newArr
+//console.log("newSumma", newSumma)
 
   return (
     <div>

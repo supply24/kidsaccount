@@ -31,10 +31,10 @@ async function getEconomy2(){
   console.log("hämtade", data? data:"ej hämt")
 }
 
-
+const newTime = accounter.flatMap(item=>item).filter(item=>item.kontox_value==="891")
 
 const newTime1 = accounter.flatMap(item=>item).filter(item=>item.kontox_value==="562")
-const exTime1 = newTime1.map(item=>item)
+const exTime1 = newTime1.map(item=>item).concat(newTime.map(item=>item))
 console.log(exTime1)
 
 const newTime2 = accounter1.flatMap(item=>item).filter(item=>item.kontox_value==="562")

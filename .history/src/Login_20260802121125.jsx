@@ -1,35 +1,22 @@
 import React from 'react'
 import { useState } from 'react'
 import { supabase } from './data/Export/Supabase.jsx'
-import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
 
-  const navigate = useNavigate()
-
   const handleLogin = async (e) => {
     e.preventDefault()
 
-const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('name', name)
-      .eq('password', password)
-      .single()
-
-    if (error) {
+    try {(  name="Emilia" && password==="Emilia123" )
+        navigate("/emlia")
+             if (error) throw error
+      console.log('Logged in user:', user)
+    } catch (error) {
       console.error('Error logging in:', error.message)
-    } else {
-      console.log('Logged in user:', data)
-      navigate('/emlia') // Redirect to the Emilia page after successful login
-      navigate("/alex") // Redirect to the Alex page after successful login
-      navigate("/torb")
-    }
-  } 
- 
-
+    }navigate("/emlia")
+  }
 
   return (
     <div>
@@ -49,9 +36,6 @@ const { data, error } = await supabase
         />
         <button type="submit">Login</button>
       </form>
-
-
-      < a href="/emlia">Don't have an account? Register here</a>
     </div>
   )
 }

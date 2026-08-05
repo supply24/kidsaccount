@@ -36,26 +36,12 @@ async function getEconomy2(){
   console.log("hämtade", data? data:"ej hämt")
 }
 
-//112
-const newKontox = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112")
-const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112")
-console.log(newKontox)
-console.log(newKontox1)
-const sumInsatt = newKontox.reduce((acc,item)=>acc+parseFloat(item.debet_value),0)
-const sumUttag = newKontox1.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
-const sumSum  = sumInsatt - sumUttag
-console.log(sumSum)
-
-//Resurs
-const newRes = accounter.flatMap((item=>item).filter(item=>item.kontox_value==="e891"))
-const newRes1 = accounter.flatMap((item=>item).filter(item=>item.kontox_value==="e891"))
-const sumInsattRes = newRes-reduce((acc,item)=>acc+parseFloat(item.debet_value), 0)
-const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
-
-
-
-
-
+const newTime1 = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112" ||item.kontox_value==="e891") 
+const newArr1 = newTime1.reduce((acc, item) => acc + parseFloat(item.debet_value), 0);
+const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112" ||item.kontox1_value==="e891")
+const newArr = newKontox1.reduce((acc, item) => acc + parseFloat(item.kredit_value), 0);
+const newSumma = newArr1 - newArr
+console.log("newSumma", newSumma)
 
   return (
     <div>
@@ -73,7 +59,7 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
         </tr>
         </thead>
 <tbody > 
-    {newKontox.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((comp, index)=>(
+    {newTime1.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((comp, index)=>(
       <tr key={index} style={{marginTop:50}}> 
       <td>
         {comp.datetime}</td>
@@ -104,8 +90,8 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
       </Table>
       </Col>
       <Col align="left">
-         <Col>   INSATT: {sumInsatt} </Col>
-        <Col>UTTAG: {sumUttag} </Col>
+         <Col>   INSATT: {newArr1} </Col>
+        <Col>UTTAG: {newArr} </Col>
         </Col>
         <hr></hr>
 
@@ -114,7 +100,7 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
 {other && <Col>
 
 <b>               
-TOTAL: {sumSum} </b>
+TOTAL: {newSumma} </b>
 <hr></hr>
 
 <Col>Av:</Col>

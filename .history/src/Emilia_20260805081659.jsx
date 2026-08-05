@@ -39,23 +39,22 @@ async function getEconomy2(){
 //112
 const newKontox = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112")
 const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112")
+
 console.log(newKontox)
 console.log(newKontox1)
-const sumInsatt = newKontox.reduce((acc,item)=>acc+parseFloat(item.debet_value),0)
-const sumUttag = newKontox1.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
-const sumSum  = sumInsatt - sumUttag
-console.log(sumSum)
+
 
 //Resurs
-const newRes = accounter.flatMap((item=>item).filter(item=>item.kontox_value==="e891"))
-const newRes1 = accounter.flatMap((item=>item).filter(item=>item.kontox_value==="e891"))
-const sumInsattRes = newRes-reduce((acc,item)=>acc+parseFloat(item.debet_value), 0)
-const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
+//const newTime2 = accounter1.flatMap(item=>item).filter(item =>item.kontox_value==="e891")
+//const newArr2 = newTime2.reduce((acc, item) => acc + parseFloat(item.debet_value - item.kredit_value), 0);
 
 
-
-
-
+//const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112" ||item.kontox1_value==="e891")
+const sumDebet = newKontox.reduce((acc, item)=>acc + parseFloat(item.debet_value),0)
+const sumKredit = newKontox1.reduce((acc, item) => acc + parseFloat(item.kredit_value), 0);
+console.log(sumDebet - sumKredit)
+//const newSumma = newArr1 - newArr
+//console.log("newSumma", newSumma)
 
   return (
     <div>
@@ -73,7 +72,7 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
         </tr>
         </thead>
 <tbody > 
-    {newKontox.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((comp, index)=>(
+    {accounter.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((comp, index)=>(
       <tr key={index} style={{marginTop:50}}> 
       <td>
         {comp.datetime}</td>
@@ -90,7 +89,7 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
 
 <tbody>
 
-  {newKontox1.map((comp, index)=>(
+  {accounter.map((comp, index)=>(
     <tr key={index}>
       <td>{comp.datetime}</td>
       <td>{comp.texting}</td>
@@ -104,8 +103,8 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
       </Table>
       </Col>
       <Col align="left">
-         <Col>   INSATT: {sumInsatt} </Col>
-        <Col>UTTAG: {sumUttag} </Col>
+         <Col>   INSATT: {null} </Col>
+        <Col>UTTAG: {null} </Col>
         </Col>
         <hr></hr>
 
@@ -114,7 +113,7 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
 {other && <Col>
 
 <b>               
-TOTAL: {sumSum} </b>
+TOTAL: {null} </b>
 <hr></hr>
 
 <Col>Av:</Col>

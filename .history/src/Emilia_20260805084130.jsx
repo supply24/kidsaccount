@@ -50,7 +50,7 @@ console.log(sumSum)
 const newRes = accounter.flatMap((item=>item).filter(item=>item.kontox_value==="e891"))
 const newRes1 = accounter.flatMap((item=>item).filter(item=>item.kontox_value==="e891"))
 const sumInsattRes = newRes-reduce((acc,item)=>acc+parseFloat(item.debet_value), 0)
-const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
+const sumUttagRes = newRes.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
 
 
 
