@@ -90,25 +90,30 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
     ))}
 
 
-      {newKontox1.map((trans1, index)=>(
-   <Trans1 trans={trans}/> 
+      {newKontox1.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((trans1, index)=>(
+      <Trans1 trans1={trans1}/> 
       ))}
-
-
-
-
-
       <Row align="center">
          <Col>   INSATT: {sumInsatt} </Col>
         <Col>UTTAG: {sumUttag} </Col>
-        <Col><b>               
-TOTAL: {sumSum} </b></Col>
         </Row>
 
         </Card> 
-      
+        <hr></hr>
+
          
 
+<Button onClick={handleChange}>Emilia</Button>
+{other && <Col>
+
+<b>               
+TOTAL: {sumSum} </b>
+<hr></hr>
+
+<Col>Av:</Col>
+<Col>Res:</Col>
+</Col>
+}
 <br></br>
 <h1>RESURS</h1>
 

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import { createClient } from '@supabase/supabase-js'
 import {supabase} from "./data/Export/Supabase.jsx"
-import {Col, Row, Table, Button, Card} from "react-bootstrap"
+import {Col, Row, Table, Button} from "react-bootstrap"
 import {Link} from "react-router-dom"
-import {Trans, Trans1} from "./data/Export/Exporting.jsx"
+import {Trans} from "./data/Export/Exporting.jsx"
 
 const Emilia = () => {
     const [accounter, setAccounter]=useState([])
@@ -12,7 +12,6 @@ const Emilia = () => {
     const [konto, setKonto]=useState([])
     const [trans, setTrans]=useState("")
     const [other, setOther]=useState(false)
-    const [acc, setAcc]=useState([])
 
     const handleChange = () => {
       setOther(!other)
@@ -21,14 +20,8 @@ const Emilia = () => {
     useEffect(()=>{
       getEconomy1()
     getEconomy2() 
-    getEc()
     }, [])
     
-    async function getEc(){
-      const {data, error} = await supabase.from("Accounting").selct("*")
-      setAcc(data)
-      
-    }
     
     async function getEconomy1(){
     const {data, error} =await supabase
@@ -46,14 +39,12 @@ async function getEconomy2(){
 }
 
 //112
-//const xcalibur = acc.flatMap(item=>item)
 const newKontox = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112")
 const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112")
 console.log(newKontox)
 console.log(newKontox1)
 const sumInsatt = newKontox.reduce((acc,item)=>acc+parseFloat(item.debet_value),0)
 const sumUttag = newKontox1.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
-console.log(sumUttag)
 const sumSum  = sumInsatt - sumUttag
 console.log(sumSum)
 
@@ -70,47 +61,37 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
   return (
     <div>
       <Link to="/">Back</Link>
-
-      <h1>Kort</h1>
-
-<Card style={{fontSize:10}}><b>
-   <Row style={{fontSize:10}}> 
-<Col>Datum</Col>
-<Col>Text</Col>
-<Col>Konto</Col> 
-<Col>+</Col>
-  <Col>-</Col> </Row> </b>
-    
-  
+      <Col> 
 
     {newKontox.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((trans, index)=>(
       <Trans trans={trans}/> 
-
-
+  
     ))}
 
 
-      {newKontox1.map((trans1, index)=>(
-   <Trans1 trans={trans}/> 
-      ))}
 
 
 
 
-
-      <Row align="center">
+      </Col>
+      <Col align="left">
          <Col>   INSATT: {sumInsatt} </Col>
         <Col>UTTAG: {sumUttag} </Col>
-        <Col><b>               
-TOTAL: {sumSum} </b></Col>
-        </Row>
+        </Col>
+        <hr></hr>
 
-        </Card> 
-      
-         
 
-<br></br>
-<h1>RESURS</h1>
+<Button onClick={handleChange}>Emilia</Button>
+{other && <Col>
+
+<b>               
+TOTAL: {sumSum} </b>
+<hr></hr>
+
+<Col>Av:</Col>
+<Col>Res:</Col>
+</Col>
+}
 
 <Table style={{fontSize:12}}> 
   <thead>

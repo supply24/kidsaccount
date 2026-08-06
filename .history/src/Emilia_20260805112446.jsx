@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import { createClient } from '@supabase/supabase-js'
 import {supabase} from "./data/Export/Supabase.jsx"
-import {Col, Row, Table, Button, Card} from "react-bootstrap"
+import {Col, Row, Table, Button} from "react-bootstrap"
 import {Link} from "react-router-dom"
-import {Trans, Trans1} from "./data/Export/Exporting.jsx"
 
 const Emilia = () => {
     const [accounter, setAccounter]=useState([])
     const [accounter1, setAccounter1]=useState([])
     const [kredit,setKredit]=useState("")
     const [konto, setKonto]=useState([])
-    const [trans, setTrans]=useState("")
     const [other, setOther]=useState(false)
-    const [acc, setAcc]=useState([])
 
     const handleChange = () => {
       setOther(!other)
@@ -21,14 +18,8 @@ const Emilia = () => {
     useEffect(()=>{
       getEconomy1()
     getEconomy2() 
-    getEc()
     }, [])
     
-    async function getEc(){
-      const {data, error} = await supabase.from("Accounting").selct("*")
-      setAcc(data)
-      
-    }
     
     async function getEconomy1(){
     const {data, error} =await supabase
@@ -46,20 +37,17 @@ async function getEconomy2(){
 }
 
 //112
-//const xcalibur = acc.flatMap(item=>item)
 const newKontox = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112")
 const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112")
 console.log(newKontox)
 console.log(newKontox1)
 const sumInsatt = newKontox.reduce((acc,item)=>acc+parseFloat(item.debet_value),0)
 const sumUttag = newKontox1.reduce((acc,item)=>acc+parseFloat(item.kredit_value),0)
-console.log(sumUttag)
 const sumSum  = sumInsatt - sumUttag
 console.log(sumSum)
 
 //Resurs
-const newRes = accounter.flatMap(item=>item).filter(item=>item.kontox_value==="e891")
-const newRes1 = accounter.flatMap(item=>item).filter(item=>item.kontox1_value==="e891")
+const newKontox = accounter.flatMap(item=>item).filter(item=>item.kontox_value==="128")
 
 
 const sumInsattRes = newRes.reduce((acc,item)=>acc+parseFloat(item.debet_value), 0)
@@ -67,72 +55,73 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
 
 
 
+
+
+
   return (
     <div>
       <Link to="/">Back</Link>
-
-      <h1>Kort</h1>
-
-<Card style={{fontSize:10}}><b>
-   <Row style={{fontSize:10}}> 
-<Col>Datum</Col>
-<Col>Text</Col>
-<Col>Konto</Col> 
-<Col>+</Col>
-  <Col>-</Col> </Row> </b>
-    
-  
-
-    {newKontox.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((trans, index)=>(
-      <Trans trans={trans}/> 
-
-
+      <Col md={6} lg  ={6} sm={6} xs={6} align="center"> 
+      <Table style={{fontSize:12}} striped bordered hover> 
+        <thead> 
+        <tr>
+          <th>Datum</th>
+          <th>Text</th>
+          <th>Kort</th>
+          <th>Insatt</th>
+          <th>Uttag</th>
+            
+        </tr>
+        </thead>
+<tbody > 
+    {newKontox.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((comp, index)=>(
+      <tr key={index} style={{marginTop:50}}> 
+      <td>
+        {comp.datetime}</td>
+        <td>{comp.texting}</td>
+        <td>{comp.kontox_value}</td>
+        <td>{comp.debet_value}</td>
+        <td></td>
+          </tr>
     ))}
 
-
-      {newKontox1.map((trans1, index)=>(
-   <Trans1 trans={trans}/> 
-      ))}
+</tbody>
 
 
 
+<tbody>
 
+  {newKontox1.map((comp, index)=>(
+    <tr key={index}>
+      <td>{comp.datetime}</td>
+      <td>{comp.texting}</td>
+    <td>{comp.kontox1_value}</td>
+    <td></td>
+        <td>{comp.kredit_value}</td>
+           </tr>
+  ))}
+</tbody>  
 
-      <Row align="center">
+      </Table>
+      </Col>
+      <Col align="left">
          <Col>   INSATT: {sumInsatt} </Col>
         <Col>UTTAG: {sumUttag} </Col>
-        <Col><b>               
-TOTAL: {sumSum} </b></Col>
-        </Row>
+        </Col>
+        <hr></hr>
 
-        </Card> 
-      
-         
 
-<br></br>
-<h1>RESURS</h1>
+<Button onClick={handleChange}>Emilia</Button>
+{other && <Col>
 
-<Table style={{fontSize:12}}> 
-  <thead>
+<b>               
+TOTAL: {sumSum} </b>
+<hr></hr>
 
-    <tr>
-      <th>datetime</th>
-        <th>datetime</th>
-          <th>datetime</th>
-            <th>datetime</th>
-    </tr>
-  </thead>
-{newRes.map((comp, index)=>(
-  <tr key={index}>
- <td>{comp.datetime}</td>
- <td>{comp.texting}</td>
- <td>{comp.kontox1_value}</td>
- <td>{comp.kredit_value}</td>
- </tr>))}
-</Table>
- 
- 
-
+<Col>Av:</Col>
+<Col>Res:</Col>
+</Col>
+}
 
 
     </div>

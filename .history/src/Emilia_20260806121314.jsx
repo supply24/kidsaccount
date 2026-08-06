@@ -90,8 +90,8 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
     ))}
 
 
-      {newKontox1.map((trans1, index)=>(
-   <Trans1 trans={trans}/> 
+      {newKontox.map((trans, index)=>(
+   <Trans trans={trans}/> 
       ))}
 
 

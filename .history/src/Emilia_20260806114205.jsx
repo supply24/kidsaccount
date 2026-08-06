@@ -12,7 +12,6 @@ const Emilia = () => {
     const [konto, setKonto]=useState([])
     const [trans, setTrans]=useState("")
     const [other, setOther]=useState(false)
-    const [acc, setAcc]=useState([])
 
     const handleChange = () => {
       setOther(!other)
@@ -21,14 +20,8 @@ const Emilia = () => {
     useEffect(()=>{
       getEconomy1()
     getEconomy2() 
-    getEc()
     }, [])
     
-    async function getEc(){
-      const {data, error} = await supabase.from("Accounting").selct("*")
-      setAcc(data)
-      
-    }
     
     async function getEconomy1(){
     const {data, error} =await supabase
@@ -46,7 +39,6 @@ async function getEconomy2(){
 }
 
 //112
-//const xcalibur = acc.flatMap(item=>item)
 const newKontox = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112")
 const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112")
 console.log(newKontox)
@@ -71,9 +63,7 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
     <div>
       <Link to="/">Back</Link>
 
-      <h1>Kort</h1>
-
-<Card style={{fontSize:10}}><b>
+<Card><b>
    <Row style={{fontSize:10}}> 
 <Col>Datum</Col>
 <Col>Text</Col>
@@ -90,27 +80,32 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
     ))}
 
 
-      {newKontox1.map((trans1, index)=>(
-   <Trans1 trans={trans}/> 
+      {newKontox1.sort((a,b)=>new date(b.datetime) - new Date(a.datetime) ).map((trans1,index)=>(
+        <Trans1 trans1={trans1}/>
       ))}
-
-
-
-
-
       <Row align="center">
          <Col>   INSATT: {sumInsatt} </Col>
         <Col>UTTAG: {sumUttag} </Col>
-        <Col><b>               
-TOTAL: {sumSum} </b></Col>
         </Row>
 
         </Card> 
-      
+        <hr></hr>
+
          
 
+<Button onClick={handleChange}>Emilia</Button>
+{other && <Col>
+
+<b>               
+TOTAL: {sumSum} </b>
+<hr></hr>
+
+<Col>Av:</Col>
+<Col>Res:</Col>
+</Col>
+}
 <br></br>
-<h1>RESURS</h1>
+RESURS
 
 <Table style={{fontSize:12}}> 
   <thead>

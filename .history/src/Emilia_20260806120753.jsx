@@ -90,8 +90,8 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
     ))}
 
 
-      {newKontox1.map((trans1, index)=>(
-   <Trans1 trans={trans}/> 
+      {newKontox1.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((trans1, index)=>(
+   <Trans trans={trans}/> 
       ))}
 
 

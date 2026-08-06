@@ -46,7 +46,7 @@ async function getEconomy2(){
 }
 
 //112
-//const xcalibur = acc.flatMap(item=>item)
+const xcalibur = acc.flatMap(item=>item)
 const newKontox = accounter.flatMap(item=>item).filter(item =>item.kontox_value==="112")
 const newKontox1 = accounter.flatMap(item=>item).filter(item =>item.kontox1_value==="112")
 console.log(newKontox)
@@ -90,25 +90,30 @@ const sumUttagRes = newRes1.reduce((acc,item)=>acc+parseFloat(item.kredit_value)
     ))}
 
 
-      {newKontox1.map((trans1, index)=>(
-   <Trans1 trans={trans}/> 
-      ))}
-
-
-
-
-
+      {xcalibur > 0 ? xcalibur.sort((a,b)=>new date(b.datetime) - new Date(a.datetime)).map((trans1,index)=>(
+        <Trans1 trans1={trans1}/>
+      )):"not more"}
       <Row align="center">
          <Col>   INSATT: {sumInsatt} </Col>
         <Col>UTTAG: {sumUttag} </Col>
-        <Col><b>               
-TOTAL: {sumSum} </b></Col>
         </Row>
 
         </Card> 
-      
+        <hr></hr>
+
          
 
+<Button onClick={handleChange}>Emilia</Button>
+{other && <Col>
+
+<b>               
+TOTAL: {sumSum} </b>
+<hr></hr>
+
+<Col>Av:</Col>
+<Col>Res:</Col>
+</Col>
+}
 <br></br>
 <h1>RESURS</h1>
 
